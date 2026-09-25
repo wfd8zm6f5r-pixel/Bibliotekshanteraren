@@ -32,4 +32,7 @@ public class Member {
         this.activeLoans = activeLoans;
     }
 
+    public boolean canBorrowMore() {
+        return activeLoans < 3;
+    }
 }

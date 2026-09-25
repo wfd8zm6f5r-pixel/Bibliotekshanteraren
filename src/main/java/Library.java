@@ -37,7 +37,6 @@ public class Library {
         }
         return null;
     }
-
     public Book findBookByIsbn(String isbn) {
         for (int i = 0; i < bookCount; i++) {
             if (books[i].isbn().equalsIgnoreCase(isbn)) {
@@ -45,5 +44,35 @@ public class Library {
             }
         }
         return null;
+    }
+    public boolean borrowBook(String isbn, int memberId) {
+        Book book = findBookByIsbn(isbn);
+        if (book == null) {
+            System.out.println("Book not found!");
+            return false;
+        }
+        Member member = findMemberById(memberId);
+        if (member == null) {
+            System.out.println("Member not found!");
+            return false;
+        }
+        if (!member.canBorrowMore()) {
+            System.out.println("Member cannot borrow more books!");
+            return false;
+        }
+        int bookIndex = -1;
+        for (int i = 0; i < bookCount; i++) {
+            if (books[i] == book) {
+                bookIndex = i;
+                break;
+            }
+        }
+        if (borrowedBy[bookIndex] != null) {
+            System.out.println("Book is already borrowed!");
+            return false;
+        }
+        borrowedBy[bookIndex] = member;
+        member.setActiveLoans(member.getActiveLoans() + 1);
+        return true;
     }
 }
