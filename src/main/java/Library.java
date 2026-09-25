@@ -1,3 +1,5 @@
+import java.util.Locale;
+
 public class Library {
     private Book[] books = new Book[100];
     private Member[] members = new Member[100];
@@ -74,5 +76,55 @@ public class Library {
         borrowedBy[bookIndex] = member;
         member.setActiveLoans(member.getActiveLoans() + 1);
         return true;
+    }
+    public boolean returnBook(String isbn, int memberId) {
+        Book book = findBookByIsbn(isbn);
+        if (book == null) {
+            System.out.println("Book not found!");
+            return false;
+        }
+        Member member = findMemberById(memberId);
+        if (member == null) {
+            System.out.println("Member not found!");
+            return false;
+        }
+        int bookIndex = -1;
+        for (int i = 0; i < bookCount; i++) {
+            if (books[i] == book) {
+                bookIndex = i;
+                break;
+            }
+        }
+        if (borrowedBy[bookIndex] != member) {
+            System.out.println("This book is not borrowed by this member!");
+            return false;
+        }
+        borrowedBy[bookIndex] = null;
+        member.setActiveLoans(member.getActiveLoans() -1);
+        return true;
+    }
+
+    public void searchBooks(String searchTerm) {
+        String lowerSearch = searchTerm.toLowerCase();
+        for (int i = 0; i < bookCount; i++) {
+            Book book = books[i];
+            String title = book.title().toLowerCase();
+            String author = book.author().toLowerCase();
+            if (title.contains(lowerSearch) || author.contains(lowerSearch)) {
+                System.out.println(book);
+            }
+        }
+    }
+
+    public void showAllBooks() {
+        for (int i = 0; i < bookCount; i++) {
+            Book book = books[i];
+            Member borrower = borrowedBy[i];
+            if (borrower == null) {
+                System.out.println(book + " - Available");
+            } else {
+                System.out.println(book + " - BorrowedBy:" + borrower.getName());
+            }
+        }
     }
 }
