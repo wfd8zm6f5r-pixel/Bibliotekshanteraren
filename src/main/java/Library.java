@@ -106,13 +106,18 @@ public class Library {
 
     public void searchBooks(String searchTerm) {
         String lowerSearch = searchTerm.toLowerCase();
+        boolean found = false;
         for (int i = 0; i < bookCount; i++) {
             Book book = books[i];
             String title = book.title().toLowerCase();
             String author = book.author().toLowerCase();
             if (title.contains(lowerSearch) || author.contains(lowerSearch)) {
                 System.out.println(book);
+                found = true;
             }
+        }
+        if (!found) {
+            System.out.println("Book not found!");
         }
     }
 

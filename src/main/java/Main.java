@@ -29,47 +29,29 @@ public class Main {
                     break;
 
                 case "2":
-                    try {
 
-                    System.out.print("Medlems-ID: ");
-                    int memberId = Integer.parseInt(scanner.nextLine());
+                    int memberId = readInt(scanner, "Medlems-ID: ");
                     System.out.print("Namn: ");
                     String name = scanner.nextLine();
                     Member member = new Member(memberId, name);
                     library.addMember(member);
                     System.out.println("Medlem har registrerats!");
-            }
-                    catch (NumberFormatException e) {
-                        System.out.println("Medlems-ID måste vara ett nummer!");
-                    }
                 break;
 
                 case "3":
-                    try {
 
                         System.out.print("ISBN: ");
                         String borrowIsbn = scanner.nextLine();
-                        System.out.print("Medlems-ID: ");
-                        int borrlowMemberId = Integer.parseInt(scanner.nextLine());
+                        int borrlowMemberId = readInt(scanner, "Medlems-ID: ");
                         library.borrowBook(borrowIsbn, borrlowMemberId);
-                    }
-                    catch (NumberFormatException e) {
-                        System.out.println("Medlems-ID måste vara ett nummer!");
-                    }
                 break;
 
                 case "4":
-                    try {
 
                         System.out.print("ISBN: ");
                         String returnIsbn = scanner.nextLine();
-                        System.out.print("Medlems-ID: ");
-                        int returnMemberId = Integer.parseInt(scanner.nextLine());
+                        int returnMemberId = readInt(scanner, "Medlems-ID: ");
                         library.returnBook(returnIsbn, returnMemberId);
-                    }
-                    catch (NumberFormatException e) {
-                        System.out.println("Medlems-ID måste vara ett nummer!");
-                    }
                     break;
 
                 case "5":
@@ -90,6 +72,19 @@ public class Main {
                     System.out.println("Ogiltigt val!");
                     break;
             }
+        }
+    }
+    private static int readInt(Scanner scanner, String message) {
+        while (true) {
+            System.out.print(message);
+            if (scanner.hasNextInt()) {
+                int number = scanner.nextInt();
+                scanner.nextLine();
+                return number;
+            }
+            System.out.println("Medlems-ID måste vara ett nummer!");
+            scanner.nextLine();
+
         }
     }
 }
