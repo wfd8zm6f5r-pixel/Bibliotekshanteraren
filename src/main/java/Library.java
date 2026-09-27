@@ -1,9 +1,7 @@
-import java.util.Locale;
-
 public class Library {
-    private Book[] books = new Book[100];
-    private Member[] members = new Member[100];
-    private Member[] borrowedBy = new Member[100];
+    private Book[] books = new Book[10];
+    private Member[] members = new Member[10];
+    private Member[] borrowedBy = new Member[10];
 
     private int bookCount = 0;
     private int memberCount = 0;
@@ -17,7 +15,7 @@ public class Library {
             bookCount++;
             return true;
         } else {
-            System.out.println("Library is full!");
+            System.out.println("Boklistan är full!");
             return false;
         }
   }
@@ -28,7 +26,7 @@ public class Library {
             memberCount++;
             return true;
         } else {
-            System.out.println("Member list full!");
+            System.out.println("Medlemlistan är full!");
             return false;
         }
   }
@@ -50,16 +48,16 @@ public class Library {
     public boolean borrowBook(String isbn, int memberId) {
         Book book = findBookByIsbn(isbn);
         if (book == null) {
-            System.out.println("Book not found!");
+            System.out.println("Boken hittades ej!");
             return false;
         }
         Member member = findMemberById(memberId);
         if (member == null) {
-            System.out.println("Member not found!");
+            System.out.println("Medlemmen hittades ej!");
             return false;
         }
         if (!member.canBorrowMore()) {
-            System.out.println("Member cannot borrow more books!");
+            System.out.println("Medlem kan inte låna fler böcker!");
             return false;
         }
         int bookIndex = -1;
@@ -70,7 +68,7 @@ public class Library {
             }
         }
         if (borrowedBy[bookIndex] != null) {
-            System.out.println("Book is already borrowed!");
+            System.out.println("Boken är redan utlånad!");
             return false;
         }
         borrowedBy[bookIndex] = member;
@@ -80,12 +78,12 @@ public class Library {
     public boolean returnBook(String isbn, int memberId) {
         Book book = findBookByIsbn(isbn);
         if (book == null) {
-            System.out.println("Book not found!");
+            System.out.println("Boken hittades ej!");
             return false;
         }
         Member member = findMemberById(memberId);
         if (member == null) {
-            System.out.println("Member not found!");
+            System.out.println("Medlemmen hittades ej!");
             return false;
         }
         int bookIndex = -1;
@@ -96,7 +94,7 @@ public class Library {
             }
         }
         if (borrowedBy[bookIndex] != member) {
-            System.out.println("This book is not borrowed by this member!");
+            System.out.println("Den här boken är inte lånad av den här medlemmen!");
             return false;
         }
         borrowedBy[bookIndex] = null;
@@ -117,7 +115,7 @@ public class Library {
             }
         }
         if (!found) {
-            System.out.println("Book not found!");
+            System.out.println("Boken hittades ej!");
         }
     }
 
@@ -126,9 +124,9 @@ public class Library {
             Book book = books[i];
             Member borrower = borrowedBy[i];
             if (borrower == null) {
-                System.out.println(book + " - Available");
+                System.out.println(book + " - Tillgänglig");
             } else {
-                System.out.println(book + " - BorrowedBy:" + borrower.getName());
+                System.out.println(book + " - Utlånad till:" + borrower.getName());
             }
         }
     }

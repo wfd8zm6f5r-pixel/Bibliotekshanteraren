@@ -24,8 +24,10 @@ public class Main {
                     System.out.print("Författare: ");
                     String author = scanner.nextLine();
                     Book book = new Book(isbn, title, author);
-                    library.addBook(book);
-                    System.out.println("Boken har lagts till!");
+                    boolean bookAdded = library.addBook(book);
+                    if (bookAdded) {
+                        System.out.println("Boken har lagts till!");
+                    }
                     break;
 
                 case "2":
@@ -34,8 +36,10 @@ public class Main {
                     System.out.print("Namn: ");
                     String name = scanner.nextLine();
                     Member member = new Member(memberId, name);
-                    library.addMember(member);
-                    System.out.println("Medlem har registrerats!");
+                   boolean memberAdded = library.addMember(member);
+                    if (memberAdded) {
+                        System.out.println("Medlem har registretats!");
+                    }
                 break;
 
                 case "3":
