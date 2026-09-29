@@ -126,7 +126,7 @@ public class Library {
             if (borrower == null) {
                 System.out.println(book + " - Tillgänglig");
             } else {
-                System.out.println(book + " - Utlånad till:" + borrower.getName());
+                System.out.println(book + " - Utlånad till: " + borrower.getName());
             }
         }
     }
